@@ -9,14 +9,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Haryu2311/website-interface.git"
+    "url": "git+https://github.com/huynhlalyla/DO_AN_1.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/Haryu2311/website-interface/issues"
+    "url": "https://github.com/huynhlalyla/DO_AN_1.git/issues"
   },
-  "homepage": "https://github.com/Haryu2311/website-interface#readme",
+  "homepage": "https://github.com/huynhlalyla/DO_AN_1.git#readme",
   "dependencies": {
     "do_an_01": "file:",
     "express": "^4.21.1",

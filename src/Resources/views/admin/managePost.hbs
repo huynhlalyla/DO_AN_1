@@ -39,69 +39,7 @@
             {{/if}}/
         </tbody>
     </table>
-    <!-- Modal hiển thị tiêu đề, ngành và nội dung đầy đủ -->
-    <div id="fullContentModal" class="custom-modal">
-        <div class="custom-modal-content">
-            <span class="custom-close">&times;</span>
-            <div id="modal-username"></div> <!-- Username will be inserted here -->
-            <h2 id="modal-title">Tiêu đề</h2> <!-- Tiêu đề sẽ được chèn vào đây -->
-            <p id="modal-industry">Ngành</p> <!-- Ngành sẽ được chèn vào đây -->
-            <p id="fullContentText"></p> <!-- Nội dung sẽ được chèn vào đây -->
-        </div>
-    </div>
-
-        <!-- Edit Post Modal -->
-    <div id="editModal" class="modal">
-        <div class="modal-content">
-            <span class="close">&times;</span>
-            <h2>Chỉnh sửa bài đăng</h2>
-            <form id="edit-form">
-                <label for="edit-title">Tiêu đề:</label>
-                <input type="text" id="edit-title" name="title" required>
-                <label for="edit-content">Nội dung:</label>
-                <textarea id="edit-content" name="content" rows="3" required></textarea>
-                <label for="edit-category">Ngành:</label>
-                <select id="edit-category" name="category" required>
-                    <option value="" disabled selected>Chọn ngành...</option>
-                    <option value="Công nghệ thông tin">Công nghệ thông tin</option>
-                    <option value="Hệ thống thông tin">Hệ thống thông tin</option>
-                    <option value="Khoa học máy tính">Khoa học máy tính</option>
-                    <option value="Kỹ thuật phần mềm">Kỹ thuật phần mềm</option>
-                    <option value="Mạng máy tính và truyền thông dữ liệu">Mạng máy tính và truyền thông dữ liệu</option>
-                    <option value="Quản trị kinh doanh">Quản trị kinh doanh</option>
-                    <option value="Quản trị nhân lực">Quản trị nhân lực</option>
-                    <option value="Quản trị sản xuất">Quản trị sản xuất</option>
-                </select>
-                <div class="btn-post">
-                    <button type="submit">Lưu</button>
-                    <button type="button" id="cancel-edit">Hủy</button>
-                </div>
-            </form>
-        </div>
-    </div>
-
-    <!-- Confirmation Modal for Save -->
-    <div id="confirmSaveModal" class="modal">
-        <div class="modal-content-edit">
-            <p>Bạn có muốn lưu các thay đổi?</p>
-            <div class="modal-buttons">
-                <button id="confirm-save">Lưu</button>
-                <button id="cancel-save">Hủy</button>
-            </div>
-        </div>
-    </div>    
-
-    <!-- Confirmation Modal for Cancel -->
-    <div id="confirmCancelModal" class="modal">
-        <div class="modal-content-edit">
-            <p>Bạn có chắc chắn muốn hủy các thay đổi?</p>
-            <div class="modal-buttons">
-                <button id="confirm-cancel">Hủy thay đổi</button>
-                <button id="cancel-cancel">Quay lại</button>
-            </div>
-        </div>
-    </div>   
-
+  
 {{!-- form xóa dữ liệu --}}
 <form id="form-delete" action="/admin/postManage/" method="post"></form>
 
@@ -112,7 +50,9 @@
             const deleteButtons = document.querySelectorAll('.delete-post');
             deleteButtons.forEach(button => {
                 button.addEventListener('click', function() {
-                    console.log('delete');
+                    if (!confirm('Bạn có chắc chắn muốn xóa bài đăng này?')) {
+                        return;
+                    }
                     const postId = button.getAttribute('data-delete');
                     const formDelete = document.querySelector('#form-delete');
                     formDelete.action = `/admin/postManage/${postId}?_method=DELETE`;

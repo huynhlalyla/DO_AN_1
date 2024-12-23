@@ -60,12 +60,6 @@ $(document).ready(function () {
         $('#editModal').show(); // Hiển thị modal chỉnh sửa
     });
 
-    // Xóa bài đăng
-    $('.delete-post').on('click', function () {
-        if (confirm("Bạn có chắc chắn muốn xóa bài đăng này không?")) {
-            $(this).closest('tr').remove(); // Xóa bài đăng
-        }
-    });
 
     // Xử lý khi gửi form chỉnh sửa
     $('#edit-form').on('submit', function (e) {
