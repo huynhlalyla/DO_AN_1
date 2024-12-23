@@ -1,0 +1,211 @@
+<div class="header">
+    {{!-- <h1>Quản lý bài đăng</h1>
+    <div class="search-box">
+        <form onsubmit="event.preventDefault();">
+            <input type="text" class="search" id="searchInput" placeholder="Tìm UserID.... " onkeyup="searchUsers()">
+            <i class="fa-solid fa-magnifying-glass" id="search-icon"></i>
+        </form>
+    </div> --}}
+</div>
+    <table class="post-table">
+        <thead>
+            <tr>
+                <th>Tiêu đề</th>
+                <th>Nội dung</th>
+                <th>Ngành</th>
+                <th>File</th>
+                <th>Thao tác</th>
+            </tr>
+        </thead>
+        <tbody id="post-list">
+            {{#if posts}}
+                {{#each posts}}
+                <tr data-id="">
+                    <td class="title">{{this.postTitle}}</td>
+                    <td class="content">{{this.postContent}}</td>
+                    <td class="additional-info">{{this.industryName}}</td>
+                    <td><a href="/document/view/{{this._id}}" target="_blank">Xem file</a></td>
+                    <td>
+                        <button data-update="{{this._id}}" class="edit-post">Sửa</button>
+                        <button data-delete="{{this._id}}" class="delete-post">Xóa</button>
+                    </td>
+                <tr>
+                {{/each}}
+            {{else}}
+                <tr>
+                    <td colspan="5">Không có bài đăng nào.</td>
+                </tr>
+            {{/if}}
+        </tbody>
+    </table>
+    <!-- Modal hiển thị tiêu đề, ngành và nội dung đầy đủ -->
+    <div id="fullContentModal" class="custom-modal">
+        <div class="custom-modal-content">
+            <span class="custom-close">&times;</span>
+            <div id="modal-username"></div> <!-- Username will be inserted here -->
+            <h2 id="modal-title">Tiêu đề</h2> <!-- Tiêu đề sẽ được chèn vào đây -->
+            <p id="modal-industry">Ngành</p> <!-- Ngành sẽ được chèn vào đây -->
+            <p id="fullContentText"></p> <!-- Nội dung sẽ được chèn vào đây -->
+        </div>
+    </div>
+        <!-- Edit Post Modal -->
+    <div id="editModal" class="modal d-none">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Chỉnh sửa bài đăng</h2>
+            <form action="/post/edit/" id="edit-form" method="POST" enctype="multipart/form-data">
+                <label for="edit-title">Tiêu đề:</label>
+                <input type="text" id="edit-title" name="postTitle">
+                <label for="edit-content">Nội dung:</label>
+                <textarea id="edit-content" name="postContent" rows="3"></textarea>
+                <label for="edit-category">Ngành:</label>
+                <select id="edit-category" name="industryName">
+                    <option value="" disabled selected>Chọn ngành...</option>
+                    <option value="Công nghệ thông tin">Công nghệ thông tin</option>
+                    <option value="Hệ thống thông tin">Hệ thống thông tin</option>
+                    <option value="Khoa học máy tính">Khoa học máy tính</option>
+                    <option value="Kỹ thuật phần mềm">Kỹ thuật phần mềm</option>
+                    <option value="Mạng máy tính và truyền thông dữ liệu">Mạng máy tính và truyền thông dữ liệu</option>
+                    <option value="Quản trị kinh doanh">Quản trị kinh doanh</option>
+                    <option value="Quản trị nhân lực">Quản trị nhân lực</option>
+                    <option value="Quản trị sản xuất">Quản trị sản xuất</option>
+                </select>
+                <label for="edit-file">Tải lên file:</label>
+                <input type="file" id="edit-file" name="file">
+                <div class="btns-post">
+                    <button type="submit" id="save-edit">Lưu</button>
+                    <button type="button" id="cancel-edit">Hủy</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Confirmation Modal for Save -->
+    <div id="confirmSaveModal" class="modal d-none">
+        <div class="modal-content-edit">
+            <p>Bạn có muốn lưu các thay đổi?</p>
+            <div class="modal-buttons">
+                <button id="confirm-save">Lưu</button>
+                <button id="cancel-save">Hủy</button>
+            </div>
+        </div>
+    </div>    
+
+    {{!-- <!-- Confirmation Modal for Cancel -->
+    <div id="confirmCancelModal" class="modal">
+        <div class="modal-content-edit">
+            <p>Bạn có chắc chắn muốn hủy các thay đổi?</p>
+            <div class="modal-buttons">
+                <button id="confirm-cancel">Hủy thay đổi</button>
+                <button id="cancel-cancel">Quay lại</button>
+            </div>
+        </div>
+    </div>    --}}
+
+    {{!-- form xoá dữ liệu --}}
+    <form id="form-delete" method="POST"></form>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+    {{!-- <script src="/js/Home.js"></script> --}}
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const deleteButtons = document.querySelectorAll('.delete-post');
+            deleteButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    console.log('delete');
+                    const postId = button.getAttribute('data-delete');
+                    console.log(`/post/delete/${postId}?_method=DELETE`)
+                    const formDelete = document.querySelector('#form-delete');
+                    formDelete.action = `/post/delete/${postId}?_method=DELETE`;
+                    formDelete.submit();
+                });
+            });
+
+            //===== SỬA BÀI ĐĂNG =====//
+            const editButtons = document.querySelectorAll('.edit-post');
+            const editModal = document.getElementById('editModal');
+            const editForm = document.getElementById('edit-form');
+            const saveEdit = document.getElementById('save-edit');
+            const cancelEdit = document.getElementById('cancel-edit');
+
+            editButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const postId = button.getAttribute('data-update');
+                    editModal.classList.remove('d-none');
+                    editForm.action = `/post/edit/${postId}?_method=PUT`;
+                    saveEdit.onclick = function() {
+                        editForm.submit();
+                    }
+                    cancelEdit.onclick = function() {
+                        editModal.classList.add('d-none');
+                    }
+                });
+            });
+
+            console.log(editButtons);
+        });
+    </script>
+{{!-- 
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const deleteButtons = document.querySelectorAll('.delete-post');
+    const editButtons = document.querySelectorAll('.edit-post');
+    const editModal = document.getElementById('editModal');
+    const editForm = document.getElementById('edit-form');
+    const saveEdit = document.getElementById('save-edit');
+    const cancelEdit = document.getElementById('cancel-edit');
+    
+    // Thông báo cho nút xóa
+    deleteButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            const postId = button.getAttribute('data-delete');
+            const confirmDelete = confirm('Bạn có chắc chắn muốn xóa bài đăng này?');
+            if (confirmDelete) {
+                const formDelete = document.querySelector('#form-delete');
+                formDelete.action = `/post/delete/${postId}?_method=DELETE`;
+                formDelete.submit();
+            }
+        });
+    });
+
+    // ===== SỬA BÀI ĐĂNG =====
+    editButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            const postId = button.getAttribute('data-update');
+            
+            // Lấy thông tin bài viết từ DOM (hoặc API nếu có)
+            const postTitle = button.closest('tr').querySelector('.title').textContent;
+            const postContent = button.closest('tr').querySelector('.content').textContent;
+            const industryName = button.closest('tr').querySelector('.additional-info').textContent;
+
+            // Điền thông tin vào modal
+            document.getElementById('edit-title').value = postTitle;
+            document.getElementById('edit-content').value = postContent;
+            document.getElementById('edit-category').value = industryName;
+
+            // Mở modal
+            editModal.classList.remove('d-none');
+            editForm.action = `/post/edit/${postId}?_method=PUT`;
+        });
+    });
+
+    // Thông báo cho nút lưu
+    saveEdit.addEventListener('click', function(event) {
+        event.preventDefault(); // Ngăn submit form ngay lập tức
+        const confirmSave = confirm('Bạn có muốn lưu các thay đổi?');
+        if (confirmSave) {
+            editForm.submit();
+        }
+    });
+
+    // Thông báo cho nút hủy
+    cancelEdit.addEventListener('click', function() {
+        const confirmCancel = confirm('Bạn có chắc chắn muốn hủy các thay đổi?');
+        if (confirmCancel) {
+            editModal.classList.add('d-none');
+        }
+    });
+});
+
+</script> --}}

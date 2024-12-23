@@ -1,0 +1,60 @@
+<div class="wp-containers">
+    <div class="containers">
+        <h1>Đăng Bài</h1>
+        <form
+        id="post-form"
+          method="POST"
+          action="/post/upload"
+          enctype="multipart/form-data"
+        >
+            <h5>Tiêu đề:</h5>
+            <input type="text" name="postTitle">
+            <h5>Nội dung bài đăng:</h5>
+            <textarea name="postContent" cols="10" rows="5" required></textarea>
+            <h5>Ảnh minh họa (nếu có):</h5>
+            <input type="file" name="thumnail">
+            <h5>Ngành:</h5>
+            <select name="industryName" class="styled-select" onchange="toggleInputs()" required>
+                <option value="" disabled selected>Chọn ngành...</option>
+                <option value="Công nghệ thông tin">Công nghệ thông tin</option>
+                <option value="Hệ thống thông tin">Hệ thống thông tin</option>
+                <option value="Khoa học máy tính">Khoa học máy tính</option>
+                <option value="Kỹ thuật phần mềm">Kỹ thuật phần mềm</option>
+                <option value="Mạng máy tính và truyền thông dữ liệu">Mạng máy tính và truyền thông dữ liệu</option>
+                <option value="Quản trị kinh doanh">Quản trị kinh doanh</option>
+                <option value="Quản trị nhân lực">Quản trị nhân lực</option>
+                <option value="Quản trị sản xuất">Quản trị sản xuất</option>
+            </select>
+
+            <h5>Tài liệu (nếu có):</h5>
+            <input type="file" name="file">
+
+            <button class="btn-post" type="submit">Đăng</button>
+        </form>
+    </div>
+</div>
+
+<script>
+    const postForm = document.getElementById('post-form');
+    const postTitle = document.querySelector('input[name="postTitle"]');
+    const postContent = document.querySelector('textarea[name="postContent"]');
+    const industryName = document.querySelector('select[name="industryName"]');
+    const postBtn = document.querySelector('.btn-post');
+
+    postBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        let message = '';
+        if(postTitle.value === '' || postContent.value === '') {
+            message += 'Không được để trống các trường\n';
+        } else {
+            if(industryName.value === '') {
+                message += 'Vui lòng chọn ngành\n';
+            }
+        }
+        if(message !== '') {
+            alert(message);
+        } else {
+            postForm.submit();
+        }
+    });
+</script>

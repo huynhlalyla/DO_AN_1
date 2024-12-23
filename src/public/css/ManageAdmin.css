@@ -1,0 +1,674 @@
+.header a {
+    text-decoration: none; 
+    pointer-events: none; 
+    cursor: default;   
+}
+
+#logo {
+    display: flex;
+    margin-right: 20px;  
+}
+
+#logo img {
+    max-width: 40px;  
+    transition: max-width 0.3s ease-in-out;  
+}
+
+.header-search {
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+}
+/* Search Box */
+.search-box {
+    position: relative;
+    color: var(--text-color);
+    font-size: 18px;
+    cursor: pointer;
+    right: 60px;
+    margin-left: 70px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.search {
+    padding: 8px;
+    font-size: 14px;
+    border: var(--border-color);
+    border-radius: 5px;
+    padding-right: 100px;
+
+}
+.search-form {
+    width: 100%; /* Đảm bảo form bên trong chiếm hết chiều ngang của containers */
+    display: flex;
+
+}
+
+.searchInput {
+    padding: 8px;
+    font-size: 14px;
+    border: 1px solid var(--border-color);
+    border-radius: 5px;
+    width: 230px;  
+    margin-right: -30px;
+    white-space: nowrap;
+}
+
+#search-icon {
+    position: relative;
+    left: 5px;
+    padding-top: 10px;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+h2{
+    white-space: nowrap;
+    text-align: center;
+}
+/* #toggle-sidebar {
+    font-size: 20px;
+    color: var(--text-color);
+    z-index: 1000;
+    transition: color 0.3s ease, background-color 0.3s ease;
+    cursor: pointer;
+}
+
+#toggle-sidebar:hover {
+    color: var(--button-color);
+} */
+
+#sidebar {
+    white-space: nowrap;
+    top: 0;
+    position: fixed;
+    width: 200px;
+    background-color: #d4eaf5;
+    padding: 80px 10px;
+    height: 100%;  
+    z-index: 1;
+}
+
+#sidebar ul {
+    padding: 15px 0;
+    list-style: none;
+}
+
+#sidebar li a {
+    font-size: 16px;
+    text-decoration: none;
+    position: relative;
+    padding: 15px;
+    display: inline-block;
+    font-weight: bolder;
+    color: #000000;
+}
+
+#sidebar a::after {
+    content: "";
+    display: block;
+    height: 3px;
+    width: 0;
+    background: var(--button-color);
+    transition: width 0.3s ease;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+}
+
+#sidebar a:hover::after {
+    width: 100%;
+}
+
+#sidebar li a.active {
+    color: red;
+}
+.latest-posts{ 
+    margin-left: 200px;
+    padding-top: 85px; 
+}
+.interaction-users {
+    margin-left: 220px;  
+    padding-top: 85px;
+}
+
+.interaction-users table {
+    width: 100%;
+    border-collapse: collapse;  
+}
+
+.interaction-users th{
+    padding: 10px;
+    text-align: center;
+    background-color: #e9e9e9b9;
+    border: var(--border-color);
+}
+ 
+.user-grid-home {
+    display: grid;
+    padding: 20px 15px;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));  
+    gap: 15px;  
+}
+
+.post {
+    background-color:var(--background-color); 
+    padding: 15px;
+    border: var(--border-color); 
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    flex-direction: column;
+    max-height: 250px; 
+    overflow-y: auto; 
+    gap: 10px;
+    word-wrap: break-word;
+}
+
+.post h3 {
+    font-size: 18px;
+    margin: 0 0 10px;
+}
+
+.post p {
+    margin: 5px 0;
+    word-wrap: break-word;
+}
+/* General Post Table */
+.post-table {
+    margin: 100px 20px 0 215px;
+    width: calc(100% - 230px);
+}
+
+table {
+    width: 100%;
+    min-width: 750px;
+    margin: 20px auto;
+    table-layout: fixed;
+    border-collapse: collapse;
+    font-size: 16px;
+    background-color: var(--background-color);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+td, th {
+    padding: 12px;
+    border: var(--border-color);
+    overflow: hidden;
+    white-space: nowrap;
+    width: calc(100% / 6);
+}
+
+td {
+    background-color: var(--background-color);
+}
+
+th {
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+td:hover, .edit-post:hover, .delete-post:hover {
+    color: #3a3a3a;
+}
+
+/* Edit and Delete Buttons */
+.edit-post, .delete-post {
+    padding: 8px 12px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    margin: 2px;
+    transition: background-color 0.3s ease;
+    z-index: 2;
+}
+
+.edit-post {
+    background-color: var(--button-edit-bg);
+    color: var(--text-color);
+}
+
+.delete-post {
+    background-color: var(--button-delete-bg);
+    color: var(--text-color);
+}
+
+.edit-post:hover {
+    background-color: var(--button-edit-hover-bg);
+    color: var(--text-color);
+}
+
+.delete-post:hover {
+    background-color: var(--button-delete-hover-bg);
+    color: var(--text-color);
+}
+
+a {
+    color: var(--link-color);
+    text-decoration: none;
+}
+
+a:hover {
+    color: var(--link-hover-color);
+    text-decoration: underline;
+}
+
+/* Modal Styles */
+.modal, .modal-view, .custom-modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+.modal-content, .modal-content-edit, .modal-content-view, .custom-modal-content {
+    background-color: var(--background-color);
+    margin: auto;
+    margin-top: 100px;
+    padding: 20px 30px;
+    border: var(--border-color);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+    max-width: 500px;
+}
+
+.modal-content-edit {
+    width: 60%;
+    max-width: 400px;
+    text-align: center;
+}
+
+.modal-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.close, .custom-close {
+    background-color: var(--background-color);
+    padding: 0px 10px;
+    font-size: 28px;
+    font-weight: bold;
+    position: absolute;
+    top: 30px;
+    right: 100px;
+    cursor: pointer;
+}
+
+.close:hover, .custom-close:hover {
+    color: var(--text-color);
+    background-color:var(--button-color);
+}
+
+.btn-post {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+.btns-post {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+/* Forms */
+#edit-form {
+    display: flex;
+    flex-direction: column;
+}
+
+#edit-form label {
+    margin-top: 10px;
+    padding: 0px 5px;
+    font-weight: bold;
+}
+
+#edit-form input, #edit-form select, #edit-form textarea {
+    margin-top: 5px;
+    padding: 5px;
+    border-radius: 4px;
+    border: var(--border-color);
+    width: 100%;
+}
+
+#edit-form select {
+    width: 50%;
+}
+
+#edit-form textarea {
+    resize: vertical;
+    min-height: 20px;
+    max-height: 100px;
+}
+
+#save-edit,#cancel-edit, #confirm-save, #confirm-cancel, #cancel-save, #cancel-cancel {
+    padding: 8px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    margin: 10px;
+    transition: background-color 0.3s ease;
+}
+
+#save-edit, #confirm-save, #confirm-cancel {
+    background-color: var(--button-edit-bg);
+    color: var(--text-color);
+}
+#save-edit:hover,#confirm-save:hover, #confirm-cancel:hover{
+    background-color: var(--button-edit-hover-bg);
+}
+
+#cancel-save, #cancel-edit, #cancel-cancel {
+    background-color: var(--button-delete-bg);
+    color: var(--text-color);
+}
+
+#cancel-save:hover,#cancel-edit:hover, #cancel-cancel:hover {
+    background-color: var(--button-delete-hover-bg);
+}
+
+/* Special Information and Modal View */
+#special-info {
+    margin-top: 7px;
+    display: none;
+}
+
+.modal-view .close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.modal-view .modal-content-view {
+    max-height: 70vh;
+    overflow-y: auto;
+}
+
+/* User Grid */
+.user-grid {
+    display: grid;
+    padding: 0px 15px;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 15px;
+    margin-top: 80px;
+    margin-left: 200px;
+}
+
+.user-item {
+    background-color: #f3f3f3a1;
+    border: var(--border-color);
+    padding: 15px;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+}
+
+.user-item p {
+    margin: 5px 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    cursor: pointer;
+}
+
+.status-button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 14px;
+    cursor: pointer;
+    color: white;
+    transition: background-color 0.3s;
+}
+
+/* Nút "Khóa" với data-status="inactive" */
+.status-button[data-status="inactive"] {
+    background-color: rgb(255, 16, 16);
+}
+
+/* Nút "Mở khóa" với data-status="active" */
+.status-button[data-status="active"] {
+    background-color: #00b32d;
+}
+.status-button[data-status="inactive"]:hover {
+    background-color: rgb(196, 0, 0); /* Màu đậm hơn cho nút "Khóa" */
+}
+
+.status-button[data-status="active"]:hover {
+    background-color: rgb(0, 129, 0); /* Màu đậm hơn cho nút "Mở khóa" */
+}
+
+/* Pagination Styles */
+.pagesControls {
+    display: flex;
+    justify-content: center;
+    margin-top: 100px;
+    width: 100%;
+}
+
+.pagesControls ul {
+    font-size: 20px;
+    list-style: none;
+    display: flex;
+    gap: 10px;
+    margin: 0;
+    padding: 0;
+}
+
+.pagesControls li a {
+    display: inline-block;
+    padding: 6px 12px;
+    text-decoration: none;
+    color: #000000;
+    border: var(--border-color);
+    border-radius: 4px;
+    white-space: nowrap;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.pagesControls li a:hover {
+    background-color: #cecece;
+}
+.pagesControls li a.active {
+    background-color: #007bff; /* Màu nền của trang hiện tại */
+    color: white; /* Màu chữ của trang hiện tại */
+    border-color: #007bff; /* Màu viền của trang hiện tại */
+}
+
+.pagesControls li a.active:hover {
+    background-color: #0056b3; /* Màu nền khi hover trên trang hiện tại */
+}
+
+.pagesControls li span {
+    padding: 4px 8px;
+    white-space: nowrap;
+}
+.ellipsis{
+    position: relative;
+    font-weight: bold; /* Làm đậm dấu ... */
+    top: 10px;
+}
+.pagesControls li input {
+    width: 40px;
+    padding: 4px 8px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    margin: 0 8px;
+    text-align: center;
+}
+
+/* Styles for the go-to-page input and button */
+.go-to-page {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 14px;
+}
+
+.go-to-page input {
+    width: 110px;
+    padding: 7px 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    text-align: center;
+    font-size: 15px;
+    outline: none;
+    transition: border-color 0.3s ease;
+}
+
+.go-to-page input:focus {
+    border-color: #007bff; /* Highlight border on focus */
+    box-shadow: 0 0 4px rgba(0, 123, 255, 0.5); /* Subtle focus shadow */
+}
+
+.go-to-page button {
+    padding: 6px 12px;
+    border: none;
+    border-radius: 4px;
+    background-color: #007bff;
+    color: white;
+    font-size: 18px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.go-to-page button:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+}
+
+.go-to-page button:active {
+    transform: scale(0.98); /* Slightly shrink button on click */
+}
+
+.go-to-page button:disabled {
+    background-color: #cecece; /* Disabled state background */
+    color: #666; /* Disabled state text color */
+    cursor: not-allowed;
+}
+
+.no-results {
+    color: var(--second-text-color);
+    text-align: center;
+    font-size: 20px;
+    font-weight: bold;
+    margin-top: 100px;
+    margin-left: 200px;
+}
+
+/* Table Content */
+td.content, td.title, td.additional-info {
+    width: 200px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    cursor: pointer;
+}
+
+.hidden {
+    display: none;
+}
+
+.wp-containers {
+    padding: 20px;
+}
+
+.containers h3 {
+    margin-top: 15px;
+    font-weight: bold;
+}
+
+.containers input, .containers select, .containers textarea {
+    margin-top: 10px;
+    padding: 8px 12px;
+    border-radius: 15px;
+    border: var(--border-color);
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.containers select {
+    cursor: pointer;
+}
+#modal-username {
+    font-weight: bold; /* Makes the username bold */
+    font-size: 14px;
+    color: var(--second-text-color);
+    word-wrap: break-word; /* Allow the title to break into multiple lines if needed */
+    white-space: normal; /* Allow wrapping */
+}
+
+#modal-title, #modal-industry, #fullContentText {
+    word-wrap: break-word; /* Allow the title to break into multiple lines if needed */
+    white-space: normal; /* Allow wrapping */
+}
+
+
+.wp-containers {
+    position: relative; /* Đặt vị trí tuyệt đối */
+    top: 450px; /* Canh giữa theo chiều dọc */
+    left: 50%; /* Canh giữa theo chiều ngang */
+    margin-bottom: 150px;
+    transform: translate(-50%, -50%); /* Dịch tâm phần tử để căn giữa */
+    width: 100%;
+    max-width: 480px;
+    background-color:#6bb8db38;;
+    padding: 20px;
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    box-shadow: 0 4px 20px rgba(121, 208, 243, 0.5);
+}
+
+.containers {
+    width: 100%; /* Đảm bảo container chiếm toàn bộ chiều ngang của wp-containers */
+    max-width: 100%; /* Đảm bảo không vượt quá giới hạn wp-containers */
+    padding: 15px; /* Thêm padding để tạo khoảng cách giữa nội dung và viền */
+    box-sizing: border-box; /* Bao gồm padding trong tính toán chiều rộng */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.form-edit {
+    width: 100%; /* Đảm bảo form bên trong chiếm hết chiều ngang của containers */
+    display: flex;
+    flex-direction: column;
+}
+
+input[type="text"], textarea, input[type="file"] {
+    width: 100%;
+    font-size: 15px;
+    border: 1px solid var(--input-border-color, #ccc);
+    border-radius: 15px;
+    background-color: white;
+    box-sizing: border-box;
+}
+
+textarea {
+    resize: none;
+}
+
+.btn-post {
+    margin-top: 20px;
+    background: rgb(255, 122, 69);
+    color: var(--text-color);
+    padding: 10px;
+    font-size: 17px;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    width: 80%;
+    margin-left: 35px;
+    transition: background-color 0.3s ease;
+}
+
+.btn-post:hover {
+    background: rgb(255, 85, 23);
+}

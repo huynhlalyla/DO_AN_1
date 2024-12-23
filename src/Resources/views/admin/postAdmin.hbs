@@ -1,0 +1,135 @@
+<div class="header">
+    <h1>Bài đăng admin</h1>
+    <div class="search-box">
+        <form method="GET" class="search-form">
+            <input type="text" class="search" id="searchInput" placeholder="Tìm bài đăng.... " >
+            <i class="fa-solid fa-magnifying-glass" id="search-icon"></i>
+        </form>
+    </div>
+</div>
+    <table class="post-table">
+        <thead>
+            <tr>
+                <th>Tiêu đề</th>
+                <th>Nội dung</th>
+                <th>Ngành</th>
+                <th>File</th>
+                <th>Thao tác</th>
+            </tr>
+        </thead>
+        <tbody id="post-list">
+            {{#if posts}}
+                {{#each posts}}
+                    <tr data-id="{{this.id}}">
+                        <td class="title">{{this.postTitle}}</td>
+                        <td class="content">{{this.postContent}}</td>
+                        <td class="additional-info">{{this.industryName}}</td>
+                        <td><a href="/{{this.file}}" target="_blank">Xem file</a></td>
+                        <td>
+                            <button class="edit-post">Sửa</button>
+                            <button data-delete="{{this._id}}" class="delete-post">Xóa</button>
+                        </td>
+                    <tr>
+                {{/each}}
+            {{else}}
+                <tr>
+                    <td colspan="5">Không có bài đăng nào.</td>
+                </tr>
+            {{/if}}
+        </tbody>
+    </table>
+    <!-- Modal hiển thị tiêu đề, ngành và nội dung đầy đủ -->
+    <div id="fullContentModal" class="custom-modal">
+        <div class="custom-modal-content">
+            <span class="custom-close">&times;</span>
+            <div id="modal-username"></div> <!-- Username will be inserted here -->
+            <h2 id="modal-title">Tiêu đề</h2> <!-- Tiêu đề sẽ được chèn vào đây -->
+            <p id="modal-industry">Ngành</p> <!-- Ngành sẽ được chèn vào đây -->
+            <p id="fullContentText"></p> <!-- Nội dung sẽ được chèn vào đây -->
+        </div>
+    </div>
+
+        <!-- Edit Post Modal -->
+    <div id="editModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Chỉnh sửa bài đăng</h2>
+            <form class="form-edit" id="edit-form">
+                <label for="edit-title">Tiêu đề:</label>
+                <input type="text" id="edit-title" name="title" required>
+                <label for="edit-content">Nội dung:</label>
+                <textarea id="edit-content" name="content" rows="3" required></textarea>
+                <label for="edit-category">Ngành:</label>
+                <select id="edit-category" name="category" required>
+                    <option value="" disabled selected>Chọn ngành...</option>
+                    <option value="Công nghệ thông tin">Công nghệ thông tin</option>
+                    <option value="Hệ thống thông tin">Hệ thống thông tin</option>
+                    <option value="Khoa học máy tính">Khoa học máy tính</option>
+                    <option value="Kỹ thuật phần mềm">Kỹ thuật phần mềm</option>
+                    <option value="Mạng máy tính và truyền thông dữ liệu">Mạng máy tính và truyền thông dữ liệu</option>
+                    <option value="Quản trị kinh doanh">Quản trị kinh doanh</option>
+                    <option value="Quản trị nhân lực">Quản trị nhân lực</option>
+                    <option value="Quản trị sản xuất">Quản trị sản xuất</option>
+                </select>
+                <div class="btns-post">
+                    <button type="submit" id="save-edit">Lưu</button>
+                    <button type="button" id="cancel-edit">Hủy</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Confirmation Modal for Save -->
+    <div id="confirmSaveModal" class="modal">
+        <div class="modal-content-edit">
+            <p>Bạn có muốn lưu các thay đổi?</p>
+            <div class="modal-buttons">
+                <button id="confirm-save">Lưu</button>
+                <button id="cancel-save">Hủy</button>
+            </div>
+        </div>
+    </div>    
+
+    <div id="confirmCancelModal" class="modal">
+        <div class="modal-content-edit">
+            <p>Bạn có chắc chắn muốn hủy các thay đổi?</p>
+            <div class="modal-buttons">
+                <button id="confirm-cancel">Hủy thay đổi</button>
+                <button id="cancel-cancel">Quay lại</button>
+            </div>
+        </div>
+    </div>   
+
+{{!-- form xóa dữ liệu --}}
+<form class="form-edit" id="form-delete" action="/admin/postManage/" method="post"></form>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+    <script src="/js/admin.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const deleteButtons = document.querySelectorAll('.delete-post');
+            deleteButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    console.log('delete');
+                    const postId = button.getAttribute('data-delete');
+                    const formDelete = document.querySelector('#form-delete');
+                    formDelete.action = `/admin/postManage/${postId}?_method=DELETE`;
+                    formDelete.submit();
+                });
+            });
+
+            //kích hoạt thanh search
+            const searchFrm = document.querySelector('.search-box form');
+            const searchInput = document.getElementById('searchInput');
+            const searchIcon = document.getElementById('search-icon');
+            searchIcon.addEventListener('click', function() {
+                if (searchInput.value) {
+                    searchFrm.action = `/admin/postAdmin/${searchInput.value}`;
+                    searchFrm.submit();
+                    //window.location.href = `/admin/postManage/${searchInput.value}`;
+                } else {
+                    searchInput.focus();
+                }
+            });
+        });
+    </script>

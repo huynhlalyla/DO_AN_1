@@ -1,0 +1,169 @@
+<div class="header">
+    <h1>Quản lý người dùng</h1>
+    <div class="search-box">
+        <form method="GET" class="search-form">
+            <input type="text" class="search" id="searchInput" name="search" placeholder="Tìm ID hoặc UserName..." value="{{searchQuery}}">
+            <i class="fa-solid fa-magnifying-glass" id="search-icon"></i>
+        </form>
+    </div>
+</div>
+
+{{#if users.length}}
+    <div class="user-grid">
+        {{#each users}}
+            <div class="user-item">
+                <p title="{{this._id}}">UserID: <span class="user-id">{{this._id}}</span></p>
+                <p title="{{this.userName}}">UserName: <span class="username">{{this.userName}}</span></p>
+                <p title="">Email: <span class="email">{{this.userEmail}}</span></p>
+                <!-- trạng thái -->
+                {{#if (sameValue this.status 'active')}}
+                    <p title="{{this.status}}">Trạng thái: <span class="status">{{this.status}}</span></p>
+                {{else}}
+                    <p title="{{this.status}}">Trạng thái: <span class="status">{{this.status}}</span></p>
+                {{/if}}
+                <!-- màu nút -->
+                {{#if (sameValue this.status 'active')}}
+                    <button class="status-button" data-id="{{this._id}}" data-status="inactive">Khóa</button>
+                {{else}}
+                    <button class="status-button" data-id="{{this._id}}" data-status="active">Mở khóa</button>
+                {{/if}}
+            </div>
+        {{/each}}
+    </div>
+{{else}}
+    {{#if searchQuery}}
+        <div class="no-results">Không có kết quả phù hợp.</div>
+    {{/if}}
+{{/if}}
+        {{!-- <div style="margin-left: 100px;" class="pagesControls">
+            <ul style="list-style: none; display: flex;">
+                {{#each (range 1 totalPages)}}
+                    {{#if this}} <!-- Only render the <li> if 'this' is not null or undefined -->
+                        <li>
+                            <a href="/admin/userManage?page={{this}}" style="padding: 4px 8px;" value="{{this}}">{{this}}</a>
+                        </li>
+                    {{/if}}
+                {{/each}}
+            </ul>
+        </div> --}}
+<div class="pagesControls">
+    <ul style="list-style: none; display: flex; margin-left:100px">
+        <!-- Trang trước -->
+        {{#if prevPage}}
+            <li>
+                <a href="/admin/userManage?page={{prevPage}}&search={{searchQuery}}&limit={{limit}}" style="padding: 4px 8px;">Trang trước</a>
+            </li>
+        {{else}}
+            <li><span style="padding: 4px 8px; color: grey;">Trang trước</span></li>
+        {{/if}}
+
+        {{#if (gt totalPages 5)}}
+            <!-- Trang 1 -->
+            <li>
+                <a href="/admin/userManage?page=1&search={{searchQuery}}&limit={{limit}}" 
+                   class="{{#if (eq 1 currentPage)}}active{{/if}}" 
+                   style="padding: 4px 8px;">1</a>
+            </li>
+
+            {{#if (gt currentPage 3)}}
+                <li><span class="ellipsis" style="padding: 4px 8px;">.....</span></li>
+            {{/if}}
+
+            <!-- Các trang giữa -->
+            {{#each (range (max 2 (subtract currentPage 2)) (min totalPages (add currentPage 2)))}}
+                {{#if this}}
+                    <li>
+                        <a href="/admin/userManage?page={{this}}&search={{searchQuery}}&limit={{limit}}" 
+                           class="{{#if (eq this ../currentPage)}}active{{/if}}"
+                           style="padding: 4px 8px;" value="{{this}}">{{this}}</a>
+                    </li>
+                {{/if}}
+            {{/each}}
+
+            {{#if (lt currentPage (subtract totalPages 2))}}
+                <li><span class="ellipsis" style="padding: 4px 8px;">.....</span></li>
+            {{/if}}
+
+        {{else}}
+            <!-- Hiển thị tất cả các trang nếu tổng số trang nhỏ hơn hoặc bằng 5 -->
+            {{#each (range 1 totalPages)}}
+                <li>
+                    <a href="/admin/userManage?page={{this}}&search={{searchQuery}}&limit={{limit}}" 
+                       class="{{#if (eq this ../currentPage)}}active{{/if}}"
+                       style="padding: 4px 8px;" value="{{this}}">{{this}}</a>
+                </li>
+            {{/each}}
+        {{/if}}
+
+        <!-- Trang sau -->
+        {{#if nextPage}}
+            <li>
+                <a href="/admin/userManage?page={{nextPage}}&search={{searchQuery}}&limit={{limit}}" 
+                style="padding: 4px 8px;" title="Trang hiện tại: {{currentPage}}/{{totalPages}}">
+                    Trang sau
+                </a>
+            </li>
+        {{else}}
+            <li>
+                <span style="padding: 4px 8px; color: grey;" title="Trang hiện tại: {{currentPage}}/{{totalPages}}">
+                    Trang sau
+                </span>
+            </li>
+        {{/if}}
+        <!-- Input để nhập trang -->
+        <div class="go-to-page">
+            <input type="number" id="pageInput" placeholder="Nhập trang" min="1" max="{{totalPages}}">
+            <button onclick="goToPage()">Đi</button>
+        </div>
+    </ul>
+</div>
+<form id="pageCount" action="" method="post"></form>
+<script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+<!-- <script src="/js/admin.js"></script> -->
+
+<script>
+    //kích hoạt thanh search
+    const searchFrm = document.querySelector('.search-box form');
+    const searchInput = document.getElementById('searchInput');
+    const searchIcon = document.getElementById('search-icon');
+    searchIcon.addEventListener('click', function() {
+        if (searchInput.value) {
+            searchFrm.action = `/admin/userManage/${searchInput.value}`;
+            searchFrm.submit();
+        } else {
+            searchInput.focus();
+        }
+    });
+
+    //thiết lập chức năng mở khóa/khóa người dùng
+    const optionButtons = document.querySelectorAll('.user-item button');
+    console.log(optionButtons);
+    optionButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            const userId = button.getAttribute('data-id');
+            const formPUT = document.createElement('form');
+            const dataStatus = button.getAttribute('data-status');
+            formPUT.method = 'POST';
+            formPUT.action = `/admin/userManage/${userId}?_method=PUT`;
+            const statusInput = document.createElement('input');
+            statusInput.type = 'hidden';
+            statusInput.name = 'status';
+            statusInput.value = (dataStatus === 'active') ? 'active' : 'inactive';
+            console.log(statusInput.value);
+            formPUT.appendChild(statusInput);
+            document.body.appendChild(formPUT);
+            formPUT.submit();
+        });
+    });
+        function goToPage() {
+        const pageInput = document.getElementById('pageInput');
+        const page = parseInt(pageInput.value, 10);
+        const totalPages = {{totalPages}};
+
+        if (page >= 1 && page <= totalPages) {
+            window.location.href = `/admin/userManage?page=${page}&search={{searchQuery}}`;
+        } else {
+            alert("Số trang bạn nhập không tồn tại.");
+        }
+    }
+</script>

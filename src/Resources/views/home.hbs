@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <!-- <link rel="stylesheet" href="/path/to/your/styles.css"> -->
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 1rem 0;
+            text-align: center;
+        }
+        main {
+            display: flex;
+        }
+        #container {
+            padding: 1rem;
+        }
+        .types {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid rgba(83, 123, 161, 0.533);
+        }
+        .posts {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            padding: 1rem;
+            flex: 0 0 80%;
+        }
+        .post {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            transition: transform 0.3s;
+            width: 300px;
+            padding: 0;
+        }
+        .post a {
+            color: #333;
+            text-decoration: none;
+        }
+        .post:hover {
+            transform: translateY(-10px);
+        }
+        .post-thumbnail {
+            width: 100%;
+            height: auto;
+            max-height: 200px;
+            object-fit: cover;
+        }
+        .post-title {
+            font-size: 1.5rem;
+            margin: 1rem;
+        }
+        .post-content {
+            padding: 0 1rem 1rem;
+            color: #555;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .post-info {
+            display: flex;
+            justify-content: space-between;
+            padding: 1rem;
+            border-top: 1px solid #eee;
+        }
+        .post-info span {
+            font-size: 0.8rem;
+            color: #777;
+        }
+        .sidebar {
+            background-color: #fff;
+            padding: 1rem;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            left: 0;
+            height: 100vh;
+            width: 250px;
+            overflow-y: auto;
+            flex: 0 0 20%;
+        }
+        .sidebar h2 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        .sidebar ul {
+            list-style: none;
+            padding: 0;
+        }
+        .sidebar ul li {
+            margin-bottom: 1rem;
+        }
+        .sidebar ul li a {
+            text-decoration: none;
+            color: #333;
+            font-size: 1rem;
+        }
+        .sidebar ul li a:hover {
+            text-decoration: underline;
+        }
+        /* footer */
+        footer {
+            background-color: #333;
+            color: #fff;
+            padding: 30px;
+        }
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        .logo-name {
+            font-size: 20px;
+            font-weight: bold;
+            color: #fff;
+            letter-spacing: 1.5px;
+        }
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .footer-logo img {
+            max-height: 50px;
+        }
+        .footer-info {
+            text-align: center;
+            margin-top: 10px;
+        }
+        .social-media {
+            list-style: none;
+            padding: 0;
+            margin-top: 10px;
+        }
+        .social-media li {
+            display: inline;
+            margin: 0 10px;
+        }
+        .social-media a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 20px;
+        }
+        .social-media a .fab, .social-media a .fas {
+            margin-right: 8px;
+        }
+    </style>
+</head>
+<body>
+    <main>
+        <aside class="sidebar">
+            <h2>Loại tài liệu</h2>
+            <ul>
+                <li><a href="#posts-latest">Bài viết mới nhất</a></li>
+                <li><a href="#posts-pdf">Tài liệu PDF</a></li>
+                <li><a href="#posts-img">Hình ảnh</a></li>
+                <li><a href="#posts-video">Video</a></li>
+                <li><a href="#posts-other">Các tài liệu khác</a></li>
+            </ul>
+        </aside>
+        <div id="container">
+            {{#if latestPosts}}
+            <div class="types">
+                <h1 id="posts-latest">Bài đăng gần nhất</h1>
+            </div>
+            <section class="posts">
+                    {{#each latestPosts}}
+                        <article class="post">
+                            <a href="/document/view/{{this._id}}">
+                                <img src="{{this.thumnail}}" alt="Post 1 thumbnail" class="post-thumbnail">
+                                <h2 class="post-title">{{this.postTitle}}</h2>
+                                <p class="post-content">{{this.postContent}}</p>
+                                <div class="post-info">
+                                    <span>{{this.author.userName}}</span>
+                                    <span>{{time this.createdAt}}</span>
+                                </div>
+                            </a>
+                        </article>
+                    {{/each}}
+                </section>
+                <!-- bài đăng dạng pdf -->
+                    {{#if pdfPosts}}
+                    <div class="types">
+                        <h1 id="posts-pdf">Tài liệu PDF</h1>
+                        <a href="/document/pdf" class="view-all">Xem tất cả</a>
+                    </div>
+                    <section class="posts">
+                        {{#each pdfPosts}}
+                            <article class="post">
+                                <a href="/document/view/{{this._id}}">
+                                    <img src="{{this.thumnail}}" alt="Post 1 thumbnail" class="post-thumbnail">
+                                    <h2 class="post-title">{{this.postTitle}}</h2>
+                                    <p class="post-content">{{this.postContent}}</p>
+                                    <div class="post-info">
+                                        <span>{{this.author.userName}}</span>
+                                        <span>{{time this.createAt}}</span>
+                                    </div>
+                                </a>
+                            </article>
+                        {{/each}}
+                    </section>
+                    {{/if}}
+                    <!-- bài đăng dạng ảnh -->
+                    {{#if imagePosts}}
+                    <div class="types">
+                        <h1 id="posts-img">Hình ảnh</h1>
+                        <a href="/document/image" class="view-all">Xem tất cả</a>
+                    </div>
+                    <section class="posts">
+                        {{#each imagePosts}}
+                            <article class="post">
+                                <a href="/document/view/{{this._id}}">
+                                    <img src="{{this.thumnail}}" alt="Post 1 thumbnail" class="post-thumbnail">
+                                    <h2 class="post-title">{{this.postTitle}}</h2>
+                                    <p class="post-content">{{this.postContent}}</p>
+                                    <div class="post-info">
+                                        <span>{{this.author.userName}}</span>
+                                        <span>{{time this.createAt}}</span>
+                                    </div>
+                                </a>
+                            </article>
+                        {{/each}}
+                    </section>
+                    {{/if}}
+                    <!-- bài đăng dạng video -->
+                    {{#if videoPosts}}
+                    <div class="types">
+                        <h1 id="posts-video">Video</h1>
+                        <a href="/document/video" class="view-all">Xem tất cả</a>
+                    </div>
+                    <section class="posts">
+                        {{#each videoPosts}}
+                            <article class="post">
+                                <a href="/document/view/{{this._id}}">
+                                    <img src="{{this.thumnail}}" alt="Post 1 thumbnail" class="post-thumbnail">
+                                    <h2 class="post-title">{{this.postTitle}}</h2>
+                                    <p class="post-content">{{this.postContent}}</p>
+                                    <div class="post-info">
+                                        <span>{{this.author.userName}}</span>
+                                        <span>{{time this.createAt}}</span>
+                                    </div>
+                                </a>
+                            </article>
+                        {{/each}}
+                    </section>
+                    {{/if}}
+                    <!-- các dạng tài liệu khác -->
+                    {{#if applicationPosts}}
+                    <div class="types">
+                        <h1 id="posts-other">Các loại tài liệu khác</h1>
+                        <a href="/document/application" class="view-all">Xem tất cả</a>
+                    </div>
+                    <section class="posts">
+                        {{#each applicationPosts}}
+                            <article class="post">
+                                <a href="/document/view/{{this._id}}">
+                                    <img src="{{this.thumnail}}" alt="Post 1 thumbnail" class="post-thumbnail">
+                                    <h2 class="post-title">{{this.postTitle}}</h2>
+                                    <p class="post-content">{{this.postContent}}</p>
+                                    <div class="post-info">
+                                        <span>{{this.author.userName}}</span>
+                                        <span>{{time this.createAt}}</span>
+                                    </div>
+                                </a>
+                            </article>
+                        {{/each}}
+                    </section>
+                    {{/if}}
+                {{else}}
+                <p>chưa có bài đăng nào</p>
+                {{/if}}
+        </div>
+    </main>
+    
+    <footer>
+        <div class="footer-content">
+            <a class="footer-logo">
+                <img src="/Image/Logo.jpg" alt="Your Company Logo">
+                <span class="logo-name">QAH</span>
+            </a>
+            <div class="footer-info">
+                <p>&copy; 2024 Bản quyền thuộc về QAH.</p>
+                <ul class="social-media">
+                    <li><a href="https://github.com" target="_blank"><i class="fab fa-github"></i> GitHub</a></li>
+                    <li><a href="mailto:qha@gmail.com" target="_blank"><i class="fas fa-envelope"></i> Liên hệ</a></li>
+                </ul>
+    
+            </div>
+        </div>
+    </footer>
+    
+
+    
+    
+</body>
+</html>

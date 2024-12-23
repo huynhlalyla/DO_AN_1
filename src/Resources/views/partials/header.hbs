@@ -1,0 +1,110 @@
+
+<style>
+    .header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 15px 30px;
+        background-color: #ffffff;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    .logo {
+        font-size: 26px;
+        font-weight: bold;
+        color: #333;
+        cursor: pointer;
+    }
+    .search-bar {
+        flex-grow: 1;
+        margin: 0 20px;
+        position: relative;
+        max-width: 400px; /* Adjust the max-width to make the search bar smaller */
+    }
+    .search-bar input {
+        width: 100%;
+        padding: 10px 15px;
+        border: 1px solid #ddd;
+        border-radius: 20px;
+        font-size: 16px;
+    }
+    .search-bar input:focus {
+        outline: none;
+        border-color: #007bff;
+    }
+    .options {
+        display: flex;
+        gap: 20px;
+    }
+    .option {
+        cursor: pointer;
+        font-size: 18px; /* Increase the font size */
+        color:#333;
+        font-weight: bold; /* Make the options bold */
+        transition: color 0.3s;
+    }
+    .option:hover {
+        color: #0056b3;
+    }
+    .account {
+        display: flex;
+        align-items: center;
+        position: relative; /* Add position relative to the account */
+    }
+    .account img {
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        margin-right: 10px;
+        object-fit: cover;
+        box-shadow: 0 0 4px #0007;
+    }
+    .account:hover .submenu {
+        display: block;
+    }
+    .submenu {
+        display: none;
+        position: absolute;
+        top: 100%;
+        right: 0;
+        background-color: #ffffff;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        border-radius: 5px;
+        overflow: hidden;
+        z-index: 1;
+    }
+    .submenu .option {
+        display: block;
+        white-space: nowrap;
+        padding: 10px 20px;
+    }
+    .submenu .option:hover {
+        background-color: #f1f1f1;
+    }
+</style>
+
+<header class="header">
+    <a href="/" class="logo">
+        <img src="/Image/logo.jpg" alt="">
+    </a>
+    <form class="search-bar" method="GET" action="/search">
+        <input type="text" name="query" placeholder="Tìm kiếm...">
+    </form>
+    <div class="options">
+        <a href="/post" class="option">Đăng bài</a>
+        <a href="/posts" class="option">Quản lí bài đăng</a>
+        {{#if user}}
+        <div class="account">
+            <img src="{{user.userAvatar}}" alt="Avatar">
+            <div class="option">{{user.userName}}</div>
+            <div class="submenu">
+                <a href="/auth/logout" class="option">Đăng xuất</a>
+                {{#if (eq user.role 'admin')}}
+                    <a href="admin" class="option">Admin</a>
+                {{/if}}
+            </div>
+        </div>
+        {{else}}
+        <a href="/auth" class="option">Tài khoản</a>
+        {{/if}}
+    </div>
+</header>

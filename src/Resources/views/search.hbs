@@ -1,0 +1,49 @@
+<h1>Theo thầy bói, kết quả tìm kiếm của bạn là:</h1>
+{{#if posts}}
+    <div class="row pt-4" id="row-post">
+        <h3>Các bài đăng có liên quan</h3>
+        {{#each posts}}
+            <div class="d-flex flex-column align-items-center col-lg-3 p-0 m-0">
+                <a href="/document/view/{{this._id}}" class="card" style="width: 18rem;">
+                    <img src="{{this.thumnail}}" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <p class="card-text">{{this.postContent}}</p>
+                    </div>
+                </a>
+            </div>
+        {{/each}}
+    </div>
+    {{#if users}}
+        <div class="row pt-4" id="row-post">
+            <h3>Vài người dùng có liên quan</h3>
+            {{#each users}}
+                <div class="d-flex flex-column align-items-center col-lg-3 p-0 m-0">
+                    <a href="#" class="card" style="width: 18rem;">
+                        <img src="{{this.userAvatar}}" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <p class="card-text">{{this.userName}}</p>
+                        </div>
+                    </a>
+                </div>
+            {{/each}}
+        </div>
+    {{/if}}
+{{else}}
+    {{#if users}}
+        <div class="row pt-4" id="row-post">
+            <h3>Vài người dùng có liên quan</h3>
+            {{#each users}}
+                <div class="d-flex flex-column align-items-center col-lg-3 p-0 m-0">
+                    <a href="#" class="card" style="width: 18rem;">
+                        <img src="{{this.userAvatar}}" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <p class="card-text">{{this.userName}}</p>
+                        </div>
+                    </a>
+                </div>
+            {{/each}}
+        </div>
+    {{else}}
+        <p>Không tìm thấy kết quả nào!</p>
+    {{/if}}
+{{/if}}

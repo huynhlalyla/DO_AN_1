@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <!-- <link rel="stylesheet" href="/path/to/your/styles.css"> -->
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 1rem 0;
+            text-align: center;
+        }
+        main {
+            display: flex;
+        }
+        #container {
+            padding: 1rem;
+        }
+        .posts {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            padding: 1rem;
+            flex: 0 0 80%;
+        }
+        .post {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            transition: transform 0.3s;
+            width: 300px;
+            padding: 0;
+        }
+        .post a {
+            color: #333;
+            text-decoration: none;
+        }
+        .post:hover {
+            transform: translateY(-10px);
+        }
+        .post-thumbnail {
+            width: 100%;
+            height: auto;
+            max-height: 200px;
+            object-fit: cover;
+        }
+        .post-title {
+            font-size: 1.5rem;
+            margin: 1rem;
+        }
+        .post-content {
+            padding: 0 1rem 1rem;
+            color: #555;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .post-info {
+            display: flex;
+            justify-content: space-between;
+            padding: 1rem;
+            border-top: 1px solid #eee;
+        }
+        .post-info span {
+            font-size: 0.8rem;
+            color: #777;
+        }
+        .sidebar {
+            background-color: #fff;
+            padding: 1rem;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            left: 0;
+            height: 100vh;
+            width: 250px;
+            overflow-y: auto;
+            flex: 0 0 20%;
+        }
+        .sidebar h2 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        .sidebar ul {
+            list-style: none;
+            padding: 0;
+        }
+        .sidebar ul li {
+            margin-bottom: 1rem;
+        }
+        .sidebar ul li a {
+            text-decoration: none;
+            color: #333;
+            font-size: 1rem;
+        }
+        .sidebar ul li a:hover {
+            text-decoration: underline;
+        }
+        .pagination {
+            display: flex;
+            justify-content: center;
+            padding: 1rem;
+        }
+        .pagination ul {
+            list-style: none;
+            display: flex;
+            gap: 0.5rem;
+            padding: 0;
+        }
+        .pagination ul li {
+            margin: 0;
+        }
+        .pagination ul li a {
+            text-decoration: none;
+            color: #333;
+            padding: 0.5rem 1rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+        .pagination ul li a:hover {
+            background-color: #f4f4f4;
+        }
+    </style>
+</head>
+<body>
+    <main>
+        <aside class="sidebar">
+            <h2>Sidebar</h2>
+            <ul>
+                <li><a href="#posts-latest">Bài viết mới nhất</a></li>
+                <li><a href="#posts-oldest">Bài viết cũ nhất</a></li>
+            </ul>
+        </aside>
+        <div id="container">
+            {{#if posts}}
+            <h1 id="posts-latest">{{title}}</h1>
+            <section class="posts">
+                    {{#each posts}}
+                        <article class="post">
+                            <a href="/document/{{this._id}}">
+                                <img src="{{this.thumnail}}" alt="Post 1 thumbnail" class="post-thumbnail">
+                                <h2 class="post-title">{{this.postTitle}}</h2>
+                                <p class="post-content">{{this.postContent}}</p>
+                                <div class="post-info">
+                                    <span>{{this.author.userName}}</span>
+                                    <span>{{time this.createdAt}}</span>
+                                </div>
+                            </a>
+                        </article>
+                    {{/each}}
+                </section>
+            {{else}}
+                <p>chưa có bài đăng nào</p>
+            {{/if}}
+            {{#if totalPages}}
+            <nav class="pagination">
+                <ul>
+                    <li><a id="previous-page" href="#">&laquo; Previous</a></li>
+                    {{#each (range 1 totalPages)}}
+                        <li><a id="link-page" href="?page={{this}}">{{this}}</a></li>
+                    {{/each}}
+                    <li><a id="next-page" href="#">Next &raquo;</a></li>
+                </ul>
+            </nav>
+            {{/if}}
+        </div>
+    </main>
+        
+    
+</body>
+</html>
+
+<script>
+    //lấy page hiện tại
+    const urlParams = new URLSearchParams(window.location.search);
+    const page = urlParams.get('page') || 1;
+    //lấy tất cả các nút chuyển trang
+    const paginationLinks = document.querySelectorAll('.pagination ul li a#link-page');
+    const totalPages = paginationLinks.length;
+    //tô đậm nút chuyển trang hiện tại
+    paginationLinks.forEach(link => {
+        if (link.textContent == page) {
+            link.style.color = 'white';
+            link.style.background = 'blue';
+        }
+    });
+    //nút chuyển trang tiếp theo
+    const nextPage = document.querySelector('.pagination ul li a#next-page');
+    nextPage.href = (page < totalPages) ? `?page=${parseInt(page) + 1}` : `?page=${totalPages}`;
+    //nút chuyển trang trước
+    const previousPage = document.querySelector('.pagination ul li a#previous-page');
+    previousPage.href = (page > 1) ? `?page=${parseInt(page) - 1}` : `?page=1`;
+
+    //giới hạn số nút chuyển trang là 4
+    if (totalPages > 4) {
+        paginationLinks.forEach(link => {
+            if (link.textContent != page && link.textContent != 1 && link.textContent != totalPages) {
+                link.style.display = 'none';
+            }
+        });
+    }
+</script>

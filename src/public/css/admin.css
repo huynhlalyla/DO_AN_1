@@ -1,0 +1,68 @@
+@import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css");
+@import url("./ManageAdmin.css");
+@import url("./home.css");
+:root {
+    --primary-color: #000000;
+    --background-color: rgb(255, 255, 255);
+    --text-color: rgb(255, 255, 255);
+    --second-text-color: red;
+    --border-color: 1px solid #cecece;
+    --footer-background-color: #333333;
+    --button-color: red;
+    --button-hover-color: #c00000;
+    --button-active-bg: #007bff;
+    --button-locked-bg: #ff0a22;
+    --button-active-hover-bg: #0056b3;
+    --button-locked-hover-bg: #dd0000;
+    --button-edit-bg: #36bb3b;
+    --button-edit-hover-bg: #18971f;
+    --button-delete-bg: #ff3b2d;
+    --button-delete-hover-bg: #da0400;
+    --link-color: #007bff;
+    --link-hover-color: #0056b3;
+}
+
+body {
+    min-height: 100vh;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    background-color: rgb(254, 255, 223);
+    overflow-x: hidden;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+.header {
+    position: fixed;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;  
+    align-items: center;  
+    margin-bottom: 20px;
+    background-color: #2d5486;
+    padding: 10px 20px;
+    z-index: 1;
+}
+
+.header h1 {
+    margin: 0;
+    color: var(--text-color);
+    white-space: nowrap;
+    margin-right: 20px;
+}
+
+.footer {
+    width: 100%;
+    background-color: #2d5486;
+    color: var(--text-color);
+    text-align: center;
+    font-size: 10px;
+    padding: 15px 0;
+    position: relative;
+    top: 80px;
+    margin-top: auto; 
+}
