@@ -40,7 +40,7 @@ class DocumentController {
       }
 
       //phân ttrang, mỗi trang 9 bài viết
-      const limit = 1;
+      const limit = 9;
       const page = req.query.page || 1;
       const skip = (page - 1) * limit;
 

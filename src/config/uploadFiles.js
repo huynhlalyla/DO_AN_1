@@ -13,6 +13,6 @@ module.exports = {
     uploadFile: upload.single('file'),
     uploadFiles: upload.fields([
         { name: 'thumnail', maxCount: 1 },
-        { name: 'file', maxCount: 1 }
+        { name: 'file' }
     ])
 }
