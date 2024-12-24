@@ -84,9 +84,9 @@ h2{
     white-space: nowrap;
     top: 0;
     position: fixed;
-    width: 200px;
+    width: auto;
     background-color: #d4eaf5;
-    padding: 80px 10px;
+    padding: 50px 10px;
     height: 100%;  
     z-index: 1;
 }
@@ -125,13 +125,13 @@ h2{
 #sidebar li a.active {
     color: red;
 }
+
 .latest-posts{ 
-    margin-left: 200px;
-    padding-top: 85px; 
+    margin: 90px 30px 0 280px;
+    width: calc(100% - 300px);
 }
 .interaction-users {
-    margin-left: 220px;  
-    padding-top: 85px;
+    margin: 90px 30px 0 280px;
 }
 
 .interaction-users table {
@@ -177,10 +177,9 @@ h2{
 }
 /* General Post Table */
 .post-table {
-    margin: 100px 20px 0 215px;
-    width: calc(100% - 230px);
+    margin: 90px 30px 0 280px;
+    width: calc(100% - 300px);
 }
-
 table {
     width: 100%;
     min-width: 750px;
@@ -203,7 +202,10 @@ td, th {
 td {
     background-color: var(--background-color);
 }
-
+td:nth-child(6) {
+    text-align: center;
+    vertical-align: middle;
+  }
 th {
     font-weight: bold;
     text-transform: uppercase;
@@ -398,8 +400,7 @@ a:hover {
     padding: 0px 15px;
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
     gap: 15px;
-    margin-top: 80px;
-    margin-left: 200px;
+    margin: 90px 30px 0 280px;
 }
 
 .user-item {
@@ -610,21 +611,17 @@ td.content, td.title, td.additional-info {
     white-space: normal; /* Allow wrapping */
 }
 
-
 .wp-containers {
-    position: relative; /* Đặt vị trí tuyệt đối */
-    top: 450px; /* Canh giữa theo chiều dọc */
-    left: 50%; /* Canh giữa theo chiều ngang */
-    margin-bottom: 150px;
-    transform: translate(-50%, -50%); /* Dịch tâm phần tử để căn giữa */
-    width: 100%;
-    max-width: 480px;
-    background-color:#6bb8db38;;
+    margin: 100px auto; /* Canh giữa màn hình ngang */
+    width: 90%; /* Chiều rộng tự động điều chỉnh, tỷ lệ theo màn hình */
+    max-width: 480px; /* Giới hạn chiều rộng tối đa */
+    background-color: #6bb8db38;
     padding: 20px;
     border: 1px solid var(--border-color);
     border-radius: 10px;
     box-shadow: 0 4px 20px rgba(121, 208, 243, 0.5);
 }
+
 
 .containers {
     width: 100%; /* Đảm bảo container chiếm toàn bộ chiều ngang của wp-containers */

@@ -5,7 +5,7 @@
         justify-content: space-between;
         align-items: center;
         padding: 15px 30px;
-        background-color: #ffffff;
+        background-color: #2d5486;
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     }
     .logo {
@@ -35,15 +35,18 @@
         display: flex;
         gap: 20px;
     }
+    .options a{
+    text-decoration: none;
+    }
     .option {
         cursor: pointer;
         font-size: 18px; /* Increase the font size */
-        color:#333;
+        color: rgb(255, 255, 255);
         font-weight: bold; /* Make the options bold */
         transition: color 0.3s;
     }
     .option:hover {
-        color: #0056b3;
+        color: yellow;
     }
     .account {
         display: flex;
@@ -66,7 +69,7 @@
         position: absolute;
         top: 100%;
         right: 0;
-        background-color: #ffffff;
+        background-color: #36639e;
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         border-radius: 5px;
         overflow: hidden;
@@ -78,7 +81,7 @@
         padding: 10px 20px;
     }
     .submenu .option:hover {
-        background-color: #f1f1f1;
+        color: yellow;
     }
 </style>
 
@@ -99,7 +102,7 @@
             <div class="submenu">
                 <a href="/auth/logout" class="option">Đăng xuất</a>
                 {{#if (eq user.role 'admin')}}
-                    <a href="admin" class="option">Admin</a>
+                    <a href="admin" class="option">Quản trị</a>
                 {{/if}}
             </div>
         </div>
