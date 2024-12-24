@@ -40,6 +40,9 @@ class PostController {
                     post.type = req.files.file[0].mimetype.split('/')[0];
                 }
             }
+            //lấy ra loại file cục thể
+            const typefile = req.files.file[0].mimetype;
+            post.type = typefile;
             post.save();
             res.redirect('/posts');
         } catch (error) {
