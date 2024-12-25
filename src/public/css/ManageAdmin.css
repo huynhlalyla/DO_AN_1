@@ -481,6 +481,7 @@ a:hover {
     display: inline-block;
     padding: 6px 12px;
     text-decoration: none;
+    background-color: white;
     color: #000000;
     border: var(--border-color);
     border-radius: 4px;
