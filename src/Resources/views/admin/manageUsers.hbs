@@ -13,7 +13,7 @@
             <div class="user-item">
                 <p title="{{this._id}}">UserID: <span class="user-id">{{this._id}}</span></p>
                 <p title="{{this.userName}}">UserName: <span class="username">{{this.userName}}</span></p>
-                <p title="">Email: <span class="email">{{this.userEmail}}</span></p>
+                <p title="{{this.userEmail}}">Email: <span class="email">{{this.userEmail}}</span></p>
                 <!-- trạng thái -->
                 {{#if (sameValue this.status 'active')}}
                     <p title="{{this.status}}">Trạng thái: <span class="status">{{this.status}}</span></p>

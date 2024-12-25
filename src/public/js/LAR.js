@@ -1,10 +1,15 @@
 $(document).ready(function () {
     $('.eye').click(function () {
+        // Thêm/tắt class 'open' cho chính element bị click
         $(this).toggleClass('open');
+        
+        // Tìm phần tử <i> bên trong .eye và đổi icon giữa fa-eye và fa-eye-slash
         $(this).children('i').toggleClass('fa-eye-slash fa-eye');
-
-        // Tìm input trong cùng input-group
+        
+        // Tìm input trong cùng .input-group
         var input = $(this).closest('.input-group').find('input');
+        
+        // Kiểm tra và chuyển đổi type của input
         if (input.attr('type') === 'password') {
             input.attr('type', 'text'); // Hiện mật khẩu
         } else {
@@ -12,7 +17,6 @@ $(document).ready(function () {
         }
     });
 });
-
 
 const signUpBtnLink = document.querySelector('.signUpBtn-link');
 const signInBtnLink = document.querySelector('.signInBtn-link');

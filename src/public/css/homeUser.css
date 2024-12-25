@@ -571,6 +571,7 @@ nav {
     justify-content: flex-start;
     align-items: center;
     overflow: hidden;
+    margin-bottom: 50px
 }
 
 .containers {
@@ -652,10 +653,13 @@ td, th {
     white-space: nowrap;
     width: calc(100% / 6);
 }
-
+td:nth-child(4),
+td:nth-child(5) {
+  text-align: center; /* Căn giữa nội dung theo chiều ngang */
+  vertical-align: middle; /* Căn giữa nội dung theo chiều dọc */
+}
 td {
     padding: 8px;
-    text-align: center;
     background-color: var(--background-color);
 }
 

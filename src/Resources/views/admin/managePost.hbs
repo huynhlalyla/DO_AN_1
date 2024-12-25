@@ -1,6 +1,7 @@
 <style>
     
         .pagination {
+            margin-top: 20px;
             display: flex;
             justify-content: center;
             padding: 1rem;
@@ -20,6 +21,7 @@
             padding: 0.5rem 1rem;
             border: 1px solid #ddd;
             border-radius: 4px;
+            background-color: white;
             transition: background-color 0.3s;
         }
         .pagination ul li a:hover {
@@ -38,6 +40,7 @@
         {{#if posts}}
         <thead>
             <tr>
+                <th>ID</th>
                 <th>UserName</th>
                 <th>Tiêu đề</th>
                 <th>Nội dung</th>
@@ -46,13 +49,14 @@
                 <th>Thao tác</th>
             </tr>
         </thead>
-        <tbody id="post-list">
+        <tbody id="post-list" >
                 {{#each posts}}
                     <tr data-id="{{this.id}}">
-                        <td class="user-id">{{this.author.userName}}</td>
-                        <td class="title">{{this.postTitle}}</td>
-                        <td class="content">{{this.postContent}}</td>
-                        <td class="additional-info">{{this.industryName}}</td>
+                        <td title="{{this._id}}" class="Id">{{this._id}}</td>
+                        <td title="{{this.author.userName}}" class="username">{{this.author.userName}}</td>
+                        <td title="{{this.postTitle}}" class="title">{{this.postTitle}}</td>
+                        <td title="{{this.postContent}}" class="content">{{this.postContent}}</td>
+                        <td title="{{this.industryName}}" class="additional-info">{{this.industryName}}</td>
                         <td><a href="/document/view/{{this._id}}" target="_blank">Xem file</a></td>
                         <td>
                             <button data-delete="{{this._id}}" class="delete-post">Xóa</button>

@@ -12,7 +12,8 @@
         <table>
             <thead>
                 <tr>
-                    <th>TÊN NGƯỜI DÙNG</th>
+                    <th>ID</th>
+                    <th>USERNAME</th>
                     <th>EMAIL</th>
                     <th>SỐ BÀI ĐĂNG</th>
                 </tr>
@@ -20,9 +21,10 @@
             <tbody>
                 {{#each users}}
                     <tr>
-                        <td>{{this.userName}}</td>
-                        <td>{{this.userEmail}}</td>
-                        <td>{{this.countPost}}</td>
+                        <td title="{{this._id}}">{{this._id}}</td>
+                        <td title="{{this.userName}}">{{this.userName}}</td>
+                        <td title="{{this.userEmail}}">{{this.userEmail}}</td>
+                        <td title="{{this.countPost}}">{{this.countPost}}</td>
                     </tr>
                 {{/each}}
             </tbody>
