@@ -1,13 +1,41 @@
+<style>
+    
+        .pagination {
+            display: flex;
+            justify-content: center;
+            padding: 1rem;
+        }
+        .pagination ul {
+            list-style: none;
+            display: flex;
+            gap: 0.5rem;
+            padding: 0;
+        }
+        .pagination ul li {
+            margin: 0;
+        }
+        .pagination ul li a {
+            text-decoration: none;
+            color: #333;
+            padding: 0.5rem 1rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+        .pagination ul li a:hover {
+            background-color: #f4f4f4;
+        }
+</style>
 <div class="header">
     <h1>Quản lý bài đăng người dùng</h1>
     <div class="search-box">
         <form method="GET" class="search-form">
-            <input type="text" class="search" id="searchInput" placeholder="Tìm UserID.... ">
-            <i class="fa-solid fa-magnifying-glass" id="search-icon"></i>
+            <input type="text" class="search" id="searchInput" placeholder="Tìm kiếm... ">
         </form>
     </div>
 </div>
     <table class="post-table">
+        {{#if posts}}
         <thead>
             <tr>
                 <th>UserName</th>
@@ -19,26 +47,40 @@
             </tr>
         </thead>
         <tbody id="post-list">
-            {{#if posts}}
                 {{#each posts}}
                     <tr data-id="{{this.id}}">
                         <td class="user-id">{{this.author.userName}}</td>
                         <td class="title">{{this.postTitle}}</td>
                         <td class="content">{{this.postContent}}</td>
                         <td class="additional-info">{{this.industryName}}</td>
-                        <td><a href="/{{this.file}}" target="_blank">Xem file</a></td>
+                        <td><a href="/document/view/{{this._id}}" target="_blank">Xem file</a></td>
                         <td>
                             <button data-delete="{{this._id}}" class="delete-post">Xóa</button>
                         </td>
                     <tr>
                 {{/each}}
-            {{else}}
-                <tr>
-                    <td colspan="7">Không có bài đăng nào.</td>
-                </tr>
-            {{/if}}/
         </tbody>
+        
+        {{else}}
+            <tr>
+                <h3 colspan="7">Không có bài đăng nào.</h3>
+            </tr>
+        {{/if}}
+        
     </table>
+    {{#if totalPages}}
+        <tfoot>
+            <nav class="pagination">
+                <ul>
+                    <li><a id="previous-page" href="#">&laquo; Previous</a></li>
+                    {{#each (range 1 totalPages)}}
+                        <li><a id="link-page" href="?page={{this}}">{{this}}</a></li>
+                    {{/each}}
+                    <li><a id="next-page" href="#">Next &raquo;</a></li>
+                </ul>
+            </nav>
+        </tfoot>
+        {{/if}}
   
 {{!-- form xóa dữ liệu --}}
 <form id="form-delete" action="/admin/postManage/" method="post"></form>
@@ -73,5 +115,41 @@
                     searchInput.focus();
                 }
             });
+
+            //kích hoạt search khi nhấn enter
+            searchInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    searchFrm.action = `/admin/postManage/${searchInput.value}`;
+                    searchFrm.submit();
+                }
+            });
         });
+        //lấy page hiện tại
+        const urlParams = new URLSearchParams(window.location.search);
+        const page = urlParams.get('page') || 1;
+        //lấy tất cả các nút chuyển trang
+        const paginationLinks = document.querySelectorAll('.pagination ul li a#link-page');
+        const totalPages = paginationLinks.length;
+        //tô đậm nút chuyển trang hiện tại
+        paginationLinks.forEach(link => {
+            if (link.textContent == page) {
+                link.style.color = 'white';
+                link.style.background = 'blue';
+            }
+        });
+        //nút chuyển trang tiếp theo
+        const nextPage = document.querySelector('.pagination ul li a#next-page');
+        nextPage.href = (page < totalPages) ? `?page=${parseInt(page) + 1}` : `?page=${totalPages}`;
+        //nút chuyển trang trước
+        const previousPage = document.querySelector('.pagination ul li a#previous-page');
+        previousPage.href = (page > 1) ? `?page=${parseInt(page) - 1}` : `?page=1`;
+
+        //giới hạn số nút chuyển trang là 4
+        if (totalPages > 4) {
+            paginationLinks.forEach(link => {
+                if (link.textContent != page && link.textContent != 1 && link.textContent != totalPages && link.textContent != parseInt(page) + 1 && link.textContent != parseInt(page) - 1) {
+                    link.style.display = 'none';
+                }
+            });
+        }
     </script>

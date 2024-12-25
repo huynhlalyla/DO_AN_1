@@ -45,16 +45,17 @@ class AdminController {
         const skip = (currentPage - 1) * limit;
 
         Users.find({ role: 'user' }).lean()
-            .then(users => {
-                const userIds = users.map(user => user._id);
+            .then(allUsers => {
+                const userIds = allUsers.map(user => user._id);
 
                 return Promise.all([
                     Posts.find({ author: { $in: userIds } }).skip(skip).limit(limit).lean().populate('author'),
+                    Users.find({ role: 'user' }).limit(limit).sort({ countPost: -1 }).lean(),
                     Users.countDocuments({ role: 'user' }),
                     Posts.countDocuments({ author: { $in: userIds } })
                         
                 ])
-                .then(([posts, userCount, postCount]) => {
+                .then(([posts, users, userCount, postCount]) => {
                     const userTotalPages = Math.ceil(userCount / limit);
                     const postTotalPages = Math.ceil(postCount / limit);
                     const totalPages = Math.max(userTotalPages, postTotalPages);  // Tổng số trang
@@ -88,17 +89,18 @@ class AdminController {
     }
 
     //GET /admin/postManage
-    postManage(req, res, next) {
-        Posts.find({})
-            .populate('author')
-            .then(posts => {
-                posts = posts.filter(post => post.author.role === 'user');
-                res.render('admin/managePost', {
-                    layout: 'adminLayout', 
-                    posts: multipleMongooseToObject(posts)
-                });
-            })
-            .catch(next);
+    async postManage(req, res, next) {
+        const limit = 10;
+        const page = parseInt(req.query.page) || 1;
+        const skip = (page - 1) * limit;
+        const posts = await Posts.find({}).populate('author').skip(skip).limit(limit);
+        const count = await Posts.countDocuments({});
+        const totalPages = Math.ceil(count / limit);
+        res.render('admin/managePost', {
+            layout: 'adminLayout',
+            posts: multipleMongooseToObject(posts),
+            totalPages: totalPages
+        });
     }
     //Get /admin/postManage/:slug
     postSearch(req, res, next) {

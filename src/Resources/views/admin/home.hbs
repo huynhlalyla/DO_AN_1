@@ -2,15 +2,8 @@
     <a href="/" id="logo">
         <img src="../Image/logo.jpg" alt="Image"> <h1>Trang chủ quản trị</h1>
     </a>
-    {{!-- <div class="search-box">
-        <form method="GET" class="search-form">
-            <input type="text" class="search" id="searchInput" placeholder="Tìm UserID.... ">
-            <i class="fa-solid fa-magnifying-glass" id="search-icon"></i>
-        </form>
-    </div> --}}
 </div>
-    {{!-- <a href="" id="toggle-sidebar"><i class="fa-solid fa-bars"></i></a> --}}
-<!-- Các người dùng có tương tác cao -->
+   
 <div class="interaction-users">
     <h2>Các người dùng có tương tác cao</h2>
     {{#if noUsers}}
@@ -56,20 +49,6 @@
         </div>
     {{/if}}
 </div>
-{{!-- 
-{{!-- Add logic for checking if both are empty --}}
-{{#if noUsers}}
-    {{#if noPosts}}
-        <h1 style="color: red;">Không có người dùng và bài đăng nào!</h1>
-    {{else}}
-        <!-- Display posts section if there are no users but posts are present -->
-        <p>Hiện chưa có người dùng nào!</p>
-    {{/if}}
-{{else}}
-    {{#if noPosts}}
-        <p>Hiện chưa có bài đăng nào!</p>
-    {{/if}}
-{{/if}} --}}
 
 <div class="pagesControls">
     <ul style="list-style: none; display: flex; margin-left: 250px;">
@@ -152,7 +131,7 @@
 <script src="js/admin.js"></script>
 
 {{!-- kích hoạt thanh search --}}
-<script>
+{{!-- <script>
     document.addEventListener('DOMContentLoaded', function() {
         const searchInput = document.getElementById('searchInput');
         const searchIcon = document.getElementById('search-icon');
@@ -174,4 +153,4 @@
             alert("Vui lòng nhập một số trang hợp lệ.");
         }
     }
-</script>
+</script> --}}

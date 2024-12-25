@@ -2,8 +2,7 @@
     <h1>Quản lý người dùng</h1>
     <div class="search-box">
         <form method="GET" class="search-form">
-            <input type="text" class="search" id="searchInput" name="search" placeholder="Tìm ID hoặc UserName..." value="{{searchQuery}}">
-            <i class="fa-solid fa-magnifying-glass" id="search-icon"></i>
+            <input type="text" class="search" id="searchInput" placeholder="Tìm kiếm..." value="{{searchQuery}}">
         </form>
     </div>
 </div>
@@ -35,17 +34,7 @@
         <div class="no-results">Không có kết quả phù hợp.</div>
     {{/if}}
 {{/if}}
-        {{!-- <div style="margin-left: 100px;" class="pagesControls">
-            <ul style="list-style: none; display: flex;">
-                {{#each (range 1 totalPages)}}
-                    {{#if this}} <!-- Only render the <li> if 'this' is not null or undefined -->
-                        <li>
-                            <a href="/admin/userManage?page={{this}}" style="padding: 4px 8px;" value="{{this}}">{{this}}</a>
-                        </li>
-                    {{/if}}
-                {{/each}}
-            </ul>
-        </div> --}}
+        
 <div class="pagesControls">
     <ul style="list-style: none; display: flex; margin-left:100px">
         <!-- Trang trước -->
@@ -132,6 +121,13 @@
             searchFrm.submit();
         } else {
             searchInput.focus();
+        }
+    });
+    //kích hoạt search khi nhấn enter
+    searchInput.addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') {
+            searchFrm.action = `/admin/userManage/${searchInput.value}`;
+            searchFrm.submit();
         }
     });
 
