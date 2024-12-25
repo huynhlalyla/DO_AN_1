@@ -13,9 +13,9 @@
             {{#if posts}}
                 {{#each posts}}
                 <tr data-id="">
-                    <td class="title">{{this.postTitle}}</td>
-                    <td class="content">{{this.postContent}}</td>
-                    <td class="additional-info">{{this.industryName}}</td>
+                    <td title="{{this.postTitle}}" class="title">{{this.postTitle}}</td>
+                    <td title="{{this.postContent}}" class="content">{{this.postContent}}</td>
+                    <td title="{{this.industryName}}" class="additional-info">{{this.industryName}}</td>
                     <td><a href="/document/view/{{this._id}}" target="_blank">Xem file</a></td>
                     <td>
                         <button data-update="{{this._id}}" class="edit-post">Sửa</button>
