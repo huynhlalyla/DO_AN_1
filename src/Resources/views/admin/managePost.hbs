@@ -40,19 +40,19 @@
         {{#if posts}}
         <thead>
             <tr>
-                <th>ID</th>
-                <th>UserName</th>
+                <th>STT</th>
+                <th>Tên người dùng</th>
                 <th>Tiêu đề</th>
                 <th>Nội dung</th>
                 <th>Ngành</th>
-                <th>File</th>
+                <th>Tập tin</th>
                 <th>Thao tác</th>
             </tr>
         </thead>
         <tbody id="post-list" >
                 {{#each posts}}
                     <tr data-id="{{this.id}}">
-                        <td title="{{this._id}}" class="Id">{{this._id}}</td>
+                        <td title="{{sum @index 1}}" class="Id">{{sum @index 1}}</td>
                         <td title="{{this.author.userName}}" class="username">{{this.author.userName}}</td>
                         <td title="{{this.postTitle}}" class="title">{{this.postTitle}}</td>
                         <td title="{{this.postContent}}" class="content">{{this.postContent}}</td>

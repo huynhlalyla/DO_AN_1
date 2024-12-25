@@ -12,16 +12,16 @@
         <table>
             <thead>
                 <tr>
-                    <th>ID</th>
-                    <th>USERNAME</th>
-                    <th>EMAIL</th>
-                    <th>SỐ BÀI ĐĂNG</th>
+                    <th>STT</th>
+                    <th>Tên người dùng</th>
+                    <th>Email</th>
+                    <th>Số bài đăng</th>
                 </tr>
             </thead>
             <tbody>
                 {{#each users}}
                     <tr>
-                        <td title="{{this._id}}">{{this._id}}</td>
+                        <td title="{{sum @index 1}}">{{sum @index 1}}</td>
                         <td title="{{this.userName}}">{{this.userName}}</td>
                         <td title="{{this.userEmail}}">{{this.userEmail}}</td>
                         <td title="{{this.countPost}}">{{this.countPost}}</td>

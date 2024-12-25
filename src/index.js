@@ -85,6 +85,7 @@ app.engine('.hbs', engine({
             moment.locale('vi');
             return moment(timestamp).fromNow();
         },
+        sum: (a, b) => a + b,
     }
 }));
 app.set('view engine', '.hbs');

@@ -2,6 +2,7 @@
     <table class="post-table">
         <thead>
             <tr>
+                <th>STT</th>
                 <th>Tiêu đề</th>
                 <th>Nội dung</th>
                 <th>Ngành</th>
@@ -13,6 +14,7 @@
             {{#if posts}}
                 {{#each posts}}
                 <tr data-id="">
+                    <td title="{{sum @index 1}}" class="title">{{sum @index 1}}</td>
                     <td title="{{this.postTitle}}" class="title">{{this.postTitle}}</td>
                     <td title="{{this.postContent}}" class="content">{{this.postContent}}</td>
                     <td title="{{this.industryName}}" class="additional-info">{{this.industryName}}</td>
