@@ -30,17 +30,19 @@
             {{/if}}
         </tbody>
     </table>
+
     <!-- Modal hiển thị tiêu đề, ngành và nội dung đầy đủ -->
     <div id="fullContentModal" class="custom-modal">
         <div class="custom-modal-content">
             <span class="custom-close">&times;</span>
-            <div id="modal-username"></div> <!-- Username will be inserted here -->
+            <div id="modal-username"></div> <!-- Tên của người dùng sẽ được chèn vào đây -->
             <h2 id="modal-title">Tiêu đề</h2> <!-- Tiêu đề sẽ được chèn vào đây -->
             <p id="modal-industry">Ngành</p> <!-- Ngành sẽ được chèn vào đây -->
             <p id="fullContentText"></p> <!-- Nội dung sẽ được chèn vào đây -->
         </div>
     </div>
-        <!-- Edit Post Modal -->
+    
+        <!-- Chỉnh sửa bài đăng -->
     <div id="editModal" class="modal d-none">
         <div class="modal-content">
             <span class="close">&times;</span>
@@ -85,61 +87,13 @@
         </div>
     </div>    
 
-    {{!-- <!-- Confirmation Modal for Cancel -->
-    <div id="confirmCancelModal" class="modal">
-        <div class="modal-content-edit">
-            <p>Bạn có chắc chắn muốn hủy các thay đổi?</p>
-            <div class="modal-buttons">
-                <button id="confirm-cancel">Hủy thay đổi</button>
-                <button id="cancel-cancel">Quay lại</button>
-            </div>
-        </div>
-    </div>    --}}
+    
 
     {{!-- form xoá dữ liệu --}}
     <form id="form-delete" method="POST"></form>
 
     <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
-    {{!-- <script src="/js/Home.js"></script> --}}
 
-    {{!-- <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const deleteButtons = document.querySelectorAll('.delete-post');
-            deleteButtons.forEach(button => {
-                button.addEventListener('click', function() {
-                    console.log('delete');
-                    const postId = button.getAttribute('data-delete');
-                    console.log(`/post/delete/${postId}?_method=DELETE`)
-                    const formDelete = document.querySelector('#form-delete');
-                    formDelete.action = `/post/delete/${postId}?_method=DELETE`;
-                    formDelete.submit();
-                });
-            });
-
-            //===== SỬA BÀI ĐĂNG =====//
-            const editButtons = document.querySelectorAll('.edit-post');
-            const editModal = document.getElementById('editModal');
-            const editForm = document.getElementById('edit-form');
-            const saveEdit = document.getElementById('save-edit');
-            const cancelEdit = document.getElementById('cancel-edit');
-
-            editButtons.forEach(button => {
-                button.addEventListener('click', function() {
-                    const postId = button.getAttribute('data-update');
-                    editModal.classList.remove('d-none');
-                    editForm.action = `/post/edit/${postId}?_method=PUT`;
-                    saveEdit.onclick = function() {
-                        editForm.submit();
-                    }
-                    cancelEdit.onclick = function() {
-                        editModal.classList.add('d-none');
-                    }
-                });
-            });
-
-            console.log(editButtons);
-        });
-    </script> --}}
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {

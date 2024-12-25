@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home</title>
-    <!-- <link rel="stylesheet" href="/path/to/your/styles.css"> -->
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -202,6 +201,7 @@
                         </article>
                     {{/each}}
                 </section>
+
                 <!-- bài đăng dạng pdf -->
                     {{#if pdfPosts}}
                     <div class="types">
@@ -224,6 +224,7 @@
                         {{/each}}
                     </section>
                     {{/if}}
+
                     <!-- bài đăng dạng ảnh -->
                     {{#if imagePosts}}
                     <div class="types">
@@ -246,6 +247,7 @@
                         {{/each}}
                     </section>
                     {{/if}}
+
                     <!-- bài đăng dạng video -->
                     {{#if videoPosts}}
                     <div class="types">
@@ -268,6 +270,7 @@
                         {{/each}}
                     </section>
                     {{/if}}
+
                     <!-- các dạng tài liệu khác -->
                     {{#if applicationPosts}}
                     <div class="types">
@@ -312,9 +315,6 @@
             </div>
         </div>
     </footer>
-    
-
-    
     
 </body>
 </html>

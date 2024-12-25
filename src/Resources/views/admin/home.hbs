@@ -130,27 +130,3 @@
 <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
 <script src="js/admin.js"></script>
 
-{{!-- kích hoạt thanh search --}}
-{{!-- <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const searchInput = document.getElementById('searchInput');
-        const searchIcon = document.getElementById('search-icon');
-        searchIcon.addEventListener('click', function() {
-            if (searchInput.value) {
-                window.location.href = `/admin/search?query=${encodeURIComponent(searchInput.value)}`;
-            } else {
-                searchInput.focus();
-            }
-        });
-    });
-        function goToPage() {
-        const pageInput = document.getElementById('pageInput');
-        const page = pageInput.value;
-        const totalPages = {{pagination.totalPages}};
-        if (page >= 1 && page <= totalPages) {
-            window.location.href = "?page=" + page + "&search={{searchQuery}}&limit={{limit}}";
-        } else {
-            alert("Vui lòng nhập một số trang hợp lệ.");
-        }
-    }
-</script> --}}

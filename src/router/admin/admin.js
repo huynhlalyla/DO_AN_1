@@ -5,6 +5,7 @@ const {adminRule} = require('../../config/ruleRoute');
 
 const adminController = require('../../app/controllers/admin/adminController');
 route.get('/logout', adminController.logout);
+
 //dùng middleware để kiểm tra phiên đăng nhập
 route.use(adminRule);
 route.get('/post', adminController.post);
