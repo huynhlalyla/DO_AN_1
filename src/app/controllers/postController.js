@@ -37,13 +37,14 @@ class PostController {
                 if(req.files.file && req.files.file[0]){
                     const encodedFileName = encodeURIComponent(req.files.file[0].filename);
                     post.file = `/uploads/${encodedFileName}`;
-                    post.type = req.files.file[0].mimetype.split('/')[0];
                 }
             }
-            //lấy ra loại file cục thể
-            const typefile = req.files.file[0].mimetype;
-            post.type = typefile;
-            post.save();
+            // Lấy ra loại file cụ thể
+            if (req.files.file && req.files.file[0]) {
+                const typefile = req.files.file[0].mimetype;
+                post.type = typefile;
+            }
+            await post.save();
             res.redirect('/posts');
         } catch (error) {
             res.json({ error });

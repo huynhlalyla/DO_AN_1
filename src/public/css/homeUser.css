@@ -1057,7 +1057,6 @@ td.content, td.title, td.additional-info {
     border-radius: 5px;
     padding: 0; /* Loại bỏ khoảng cách bên trong container */
     background-color: #fff;
-    height: 50%;
 }
 
 .username {
@@ -1070,7 +1069,10 @@ td.content, td.title, td.additional-info {
 }
 
 .content-wrapper {
-    padding: 15px;
+    height: 100vh;
+    padding: 30px;
+    max-height: 100vh;
+    overflow-y: auto;
 }
 
 .content-wrapper h3 {
@@ -1079,11 +1081,20 @@ td.content, td.title, td.additional-info {
 
 .content-wrapper p {
     margin:0px;
+    color: #3a3a3a;
+    font-size: 14px;
+    line-height: 1.5;
+    text-align: justify;
+    font-style: italic;
 }
 
-.content-wrapper div span {
-    display: inline-block;
-    margin-right: 10px;
+.content-wrapper .content-info {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+    padding: 0 12px;
+    padding-top: 4px;
+    border-top: 1px solid #ddd;
 }
 
     ul.d-flex li {

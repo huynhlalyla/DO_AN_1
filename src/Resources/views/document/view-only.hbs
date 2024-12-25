@@ -1,21 +1,20 @@
 <div class="">
-    <div class="row">
-        {{#if post}}
-        <div style="height: 100vh;" class="col-lg-3 bordered-container">
+    {{#if post}}
+    <div class="row align-items-start">
+        <div class="col-lg-4 bordered-container">
             <div class="username">
                 <h1>{{post.author.userName}}</h1>
             </div>
             <div class="content-wrapper">
-                <p><b>Tiêu đề: </b>{{post.postTitle}}</p>
-                <p><b>Nội dung:</b> {{post.postContent}}</p>
-                <div>
-                    <span><b>Ngành:</b> {{post.industryName}}</span>
-                    <br>
-                    <span><b>Ngày đăng:</b> {{post.createdAt}}</span>
+                <h2>{{post.postTitle}}</h2>
+                <p>{{post.postContent}}</p>
+                <div class="content-info">
+                    <span>{{post.industryName}}</span>
+                    <span>{{time post.createdAt}}</span>
                 </div>
             </div>
         </div>
-        <div class="col-lg-9">
+        <div class="col-lg-8">
             {{#if (contain post.type "video/")}}
             <video width="100%" height="100%" controls>
                 <source src="{{post.file}}" type="video/mp4">
@@ -44,6 +43,6 @@
             {{/if}}
             
         </div>
-        {{/if}}
     </div>
+    {{/if}}
 </div>
