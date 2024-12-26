@@ -110,15 +110,6 @@
             const searchFrm = document.querySelector('.search-box form');
             const searchInput = document.getElementById('searchInput');
             const searchIcon = document.getElementById('search-icon');
-            searchIcon.addEventListener('click', function() {
-                if (searchInput.value) {
-                    searchFrm.action = `/admin/postManage/${searchInput.value}`;
-                    searchFrm.submit();
-                    //window.location.href = `/admin/postManage/${searchInput.value}`;
-                } else {
-                    searchInput.focus();
-                }
-            });
 
             //kích hoạt search khi nhấn enter
             searchInput.addEventListener('keypress', function(e) {

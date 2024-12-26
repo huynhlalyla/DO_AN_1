@@ -115,14 +115,6 @@
     const searchFrm = document.querySelector('.search-box form');
     const searchInput = document.getElementById('searchInput');
     const searchIcon = document.getElementById('search-icon');
-    searchIcon.addEventListener('click', function() {
-        if (searchInput.value) {
-            searchFrm.action = `/admin/userManage/${searchInput.value}`;
-            searchFrm.submit();
-        } else {
-            searchInput.focus();
-        }
-    });
     //kích hoạt search khi nhấn enter
     searchInput.addEventListener('keypress', function(e) {
         if (e.key === 'Enter') {
@@ -151,15 +143,16 @@
             formPUT.submit();
         });
     });
-        function goToPage() {
-        const pageInput = document.getElementById('pageInput');
-        const page = parseInt(pageInput.value, 10);
-        const totalPages = {{totalPages}};
+    // function goToPage() {
+    //     const pageInput = document.getElementById('pageInput');
+    //     const page = parseInt(pageInput.value, 10);
+    //     const totalPages = {{totalPages}};
 
-        if (page >= 1 && page <= totalPages) {
-            window.location.href = `/admin/userManage?page=${page}&search={{searchQuery}}`;
-        } else {
-            alert("Số trang bạn nhập không tồn tại.");
-        }
-    }
+    //     if (page >= 1 && page <= totalPages) {
+    //         window.location.href = `/admin/userManage?page=${page}&search={{searchQuery}}`;
+    //     } else {
+    //         alert("Số trang bạn nhập không tồn tại.");
+    //     }
+    // }
+
 </script>

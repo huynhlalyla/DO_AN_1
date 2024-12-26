@@ -93,19 +93,27 @@ class AdminController {
         const limit = 10;
         const page = parseInt(req.query.page) || 1;
         const skip = (page - 1) * limit;
-        const posts = await Posts.find({}).populate('author').skip(skip).limit(limit);
-        const count = await Posts.countDocuments({});
+        //tìm các bài post của user
+        const posts = await Posts.find({}).populate({
+            path: 'author',
+            match: {role: 'user'}
+        }).skip(skip).limit(limit).exec();
+        const filteredPosts = posts.filter(post => post.author !== null);
+        const count = await Posts.countDocuments({}).populate({
+            path: 'author',
+            match: {role: 'user'}
+        })
+        .exec();
         const totalPages = Math.ceil(count / limit);
         res.render('admin/managePost', {
             layout: 'adminLayout',
-            posts: multipleMongooseToObject(posts),
+            posts: multipleMongooseToObject(filteredPosts),
             totalPages: totalPages
         });
     }
     //Get /admin/postManage/:slug
     postSearch(req, res, next) {
         const searchData = req.params.slug;
-        console.log(searchData);
         Posts.find({$text: {$search: searchData}})
             .populate('author')
             .then(posts => {
@@ -219,7 +227,6 @@ class AdminController {
     //GET /admin/userManage/:slug
     userSearch(req, res, next) {
         const searchData = req.params.slug;
-        console.log(searchData);
         Users.find({
             $text: {$search: searchData},
             role: 'user'
